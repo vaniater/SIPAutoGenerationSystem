@@ -9,39 +9,41 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
-    <!-- 告诉SpringMVC的注解在哪里，扫描注解 -->
-    <context:component-scan base-package="com.sxy.sipautogeneration"></context:component-scan>
+    <!-- 告诉SpringMVC的注解在哪里，扫描注解，SpringMVC会将包下用了@controller注解的类注册为Spring的controller -->
+    <context:component-scan base-package="com.sxy.sipautogeneration"/>
     <!-- 配置标签让SpringMVC注解生效,创建注解解析器. -->
     <!-- 相当于org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping和
     	org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter这两个标签
      -->
+    <!-- 设置默认配置方案 -->
     <mvc:annotation-driven/>
     <!-- 如果碰见请求中/js/xx格式请求,去location配置的WEB-INF/static/js中去寻找, -->
     <!-- 如果没有配置mvc:resources去寻找@requestmapping -->
-    <mvc:resources location="WEB-INF/static/js/" mapping="/js/**"></mvc:resources>
-    <mvc:resources location="WEB-INF/static/images/" mapping="/images/**"></mvc:resources>
-    <mvc:resources location="WEB-INF/static/css/" mapping="/css/**"></mvc:resources>
-    <mvc:resources location="WEB-INF/static" mapping="/**"></mvc:resources>
+    <!--<mvc:resources location="WEB-INF/static/js/" mapping="/js/**"/>
+    <mvc:resources location="WEB-INF/static/images/" mapping="/images/**"/>
+    <mvc:resources location="WEB-INF/static/css/" mapping="/css/**"/>
+    <mvc:resources location="WEB-INF/static/" mapping="/**"/>-->
+    <mvc:resources location="WEB-INF/static/" mapping="/**"/>
 
     <!-- 拦截器 -->
-    <mvc:interceptors>
-        <bean id="loginInterceptor" class="com.sxy.sipautogeneration.interceptor.LoginInterceptor"></bean>
-    </mvc:interceptors>
+    <!--<mvc:interceptors>
+        <bean id="loginInterceptor" class="com.sxy.sipautogeneration.interceptor.LoginInterceptor"/>
+    </mvc:interceptors>-->
 
     <!-- 自定义视图解析器 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/jsp/"></property>
-        <property name="suffix" value=".jsp"></property>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
 
     <!-- 表单数据解析器 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <!-- 防止上传文件有中文时出现中文乱码 -->
-        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="defaultEncoding" value="utf-8"/>
         <!-- 文件最大上传大小，单位:byte,当超过该大小会直接抛出异常 -->
-        <property name="maxUploadSize" value="1024000000"></property>
+        <property name="maxUploadSize" value="1024000000"/>
         <!-- 文件最大占用内存大小，单位:byte -->
-        <property name="maxInMemorySize" value="1024000000"></property>
+        <property name="maxInMemorySize" value="1024000000"/>
     </bean>
 
     <!-- 异常映射解析类：当出现什么异常，就跳转掉指定位置/页面 -->
